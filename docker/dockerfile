@@ -21,7 +21,7 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/new-test.j
 
 #WORKDIR /home/xingtu
 #
-## 复制jar包
+## 复制jar包 dockerfile
 #COPY study-room.war /temp/study-room.war
 #
 ## 统一启动端口
