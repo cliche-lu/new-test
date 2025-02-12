@@ -1,0 +1,75 @@
+spring:
+  cache:
+    type: redis
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useaffectedrows=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0????SPI??????
+#  rabbitmq:
+#    host: 192.168.1.222
+#    port: 15672
+#    username: guest
+#    password: guest
+#    virtual-host: /
+
+#    url: jdbc:mysql://192.168.1.222:3306/jeecg_tms_test?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: Clcihe123,
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#    url: jdbc:mysql://10.10.10.165:2881/jeecg_tms_test?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+#    username: xnt@xnt
+#    password: ENFI12#!xnt
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+   redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+  application:
+    name: book_server
+server:
+  port: 9999
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+
+test: test
+#  自动生成元数据 测试配置
+mytest:
+  name: myTest
+  age: 18
+
+
+#JimuReport[minidao配置]
+#minidao :
+#  base-package: org.jeecg.modules.jmreport.desreport.dao*
+#  db-type: mysql
+##JimuReport[上传配置]
+#jeecg :
+#  jmreport:
+#    # 自动保存
+#    autoSave: true
+#    # 单位毫秒 默认5*60*1000
+#    interval: 10000
+#  # local|minio|alioss
+#  uploadType: local
+#  # local
+#  path :
+#    #文件路径
+#    upload: D:\images
+  # alioss
+#  oss:
+#    endpoint: oss-cn-beijing.aliyuncs.com
+#    accessKey: ??
+#    secretKey: ??
+#    staticDomain: ??
+#    bucketName: ??
+#  # minio
+#  minio:
+#    minio_url: http://minio.jeecg.com
+#    minio_name: ??
+#    minio_pass: ??
+#    bucketName: ??
