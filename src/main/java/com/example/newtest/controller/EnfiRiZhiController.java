@@ -59,6 +59,10 @@ public class EnfiRiZhiController {
         return Result.ok();
     }
 
+    /**
+     * 失败的尝试，此处连接vpn后，不能访问虚拟机了...
+     * @return
+     */
     @PostMapping("/newTestTryConnect")
     public Result newTestTryConnect() {
         RestTemplate restTemplate = new RestTemplate();
