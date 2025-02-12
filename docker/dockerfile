@@ -1,0 +1,32 @@
+FROM openjdk:21
+ #  FROM+基于镜像
+#维护者信息
+MAINTAINER cliche
+
+# VOLUME 指定了临时文件目录为/tmp。
+# 其效果是在主机 /var/lib/docker 目录下创建了一个临时文件，并链接到容器的/tmp
+VOLUME /tmp
+# 设置时区，构建镜像时执行的命令
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo "Asia/Shanghai" > /etc/timezone
+
+ #前者为打包的文件 后者为修改后的自定义名字
+ADD new-test-0.0.1-SNAPSHOT.jar new-test.jar
+# 运行jar包
+RUN bash -c 'touch /new-test.jar'
+# 统一启动端口
+#ENV PARAMS = "--server.port=8089"
+#EXPOSE 8089
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/new-test.jar"]
+
+#WORKDIR /home/xingtu
+#
+## 复制jar包
+#COPY study-room.war /temp/study-room.war
+#
+## 统一启动端口
+#ENV PARAMS = "--server.port=9204"
+#
+#EXPOSE 9204
+#
+#ENTRYPOINT ["/bin/sh","-c","java -Dfile.encoding=utf8 -Djava.security.egd=file:/dev/./urandom -jar app.jar ${PARAMS}"]

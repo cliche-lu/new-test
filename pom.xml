@@ -63,11 +63,11 @@
 
         <!--处理农历日期-->
 
-        <dependency>
-            <groupId>com.github.jiangmengdi</groupId>
-            <artifactId>lunar-java</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.jiangmengdi</groupId>-->
+<!--            <artifactId>lunar-java</artifactId>-->
+<!--            <version>1.0.0</version>-->
+<!--        </dependency>-->
 
         <!--        <dependency>-->
         <!--            <groupId>org.jeecgframework</groupId>-->
