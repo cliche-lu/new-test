@@ -1,4 +1,5 @@
-FROM openjdk:21
+#FROM openjdk:21
+FROM dragonwell-registry.cn-hangzhou.cr.aliyuncs.com/dragonwell/dragonwell:21
  #  FROM+基于镜像
 #维护者信息
 MAINTAINER cliche
