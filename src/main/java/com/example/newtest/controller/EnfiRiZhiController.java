@@ -58,4 +58,18 @@ public class EnfiRiZhiController {
 
         return Result.ok();
     }
+
+    @PostMapping("/newTestTryConnect")
+    public Result newTestTryConnect() {
+        RestTemplate restTemplate = new RestTemplate();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("account", "93285");
+        jsonObject.put("validCode", "");
+        jsonObject.put("validCodeReqNo", "");
+        jsonObject.put("password", "706424c28639033bd62e407af4d422774c83be98a7417193629adde3f3c89c2d1a2320467930c1906fba85c0a3b1186403e505b4f53900bd6b817e3728928784c5367b6cb7b0abd4ff59588940f579fadbce33e864ee31bc8b67390b6bafe3a36afc9d876b38e5075f");
+        HttpEntity<Object> objectHttpEntity = new HttpEntity<>(jsonObject,null);
+        ResponseEntity<JSONObject> exchange = restTemplate.exchange("http://bpm.10.30.0.176.nip.io/api/auth/b/doLogin", HttpMethod.POST, objectHttpEntity, JSONObject.class);
+        System.out.println("exchange = " + exchange);
+        return Result.ok();
+    }
 }
