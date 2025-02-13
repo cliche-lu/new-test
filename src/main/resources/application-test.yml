@@ -31,6 +31,10 @@ spring:
     password: "000415"
   application:
     name: book_server
+
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
 server:
   port: 9999
 

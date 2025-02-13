@@ -30,6 +30,10 @@ spring:
     port: 6379
   application:
     name: book_server
+
+  thymeleaf:
+    prefix: classpath:/public/
+    suffix: .html
 server:
   port: 9999
 
