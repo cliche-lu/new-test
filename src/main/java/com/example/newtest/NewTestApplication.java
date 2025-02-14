@@ -1,5 +1,6 @@
 package com.example.newtest;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.simpleframework.xml.core.Validate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

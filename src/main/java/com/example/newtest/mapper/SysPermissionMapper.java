@@ -1,25 +1,20 @@
 package com.example.newtest.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.newtest.enity.SysPermission;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-
-
-import javax.swing.tree.TreeModel;
-import java.util.List;
 
 /**
- * <p>
- * 菜单权限表 Mapper 接口
- * </p>
- *
- * @Author scott
- * @since 2018-12-21
- */
+* @author 93285
+* @description 针对表【sys_permission】的数据库操作Mapper
+* @createDate 2025-02-14 10:45:35
+* @Entity com.example.newtest.enity.SysPermission
+*/
 @Mapper
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
 }
+
+
+
+

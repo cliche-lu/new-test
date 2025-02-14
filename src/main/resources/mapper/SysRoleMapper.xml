@@ -2,18 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.newtest.mapper.SysPermissionMapper">
+<mapper namespace="com.example.newtest.mapper.SysRoleMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.newtest.enity.SysPermission">
+    <resultMap id="BaseResultMap" type="com.example.newtest.enity.SysRole">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="url" column="url" jdbcType="VARCHAR"/>
-            <result property="menuType" column="menu_type" jdbcType="INTEGER"/>
-            <result property="perms" column="perms" jdbcType="VARCHAR"/>
-            <result property="ruleFlag" column="rule_flag" jdbcType="INTEGER"/>
-            <result property="isRoute" column="is_route" jdbcType="TINYINT"/>
-            <result property="columnRole" column="column_role" jdbcType="VARCHAR"/>
+            <result property="roleType" column="role_type" jdbcType="VARCHAR"/>
+            <result property="allowTenant" column="allow_tenant" jdbcType="VARCHAR"/>
             <result property="rowRole" column="row_role" jdbcType="VARCHAR"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -22,14 +16,13 @@
             <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
             <result property="reversion" column="reversion" jdbcType="INTEGER"/>
             <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="columnRole" column="column_role" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,parent_id,name,
-        url,menu_type,perms,
-        rule_flag,is_route,column_role,
+        id,role_type,allow_tenant,
         row_role,create_by,create_time,
         update_by,update_time,del_flag,
-        reversion,tenant_id
+        reversion,tenant_id,column_role
     </sql>
 </mapper>
