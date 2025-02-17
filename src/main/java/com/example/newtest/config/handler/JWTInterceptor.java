@@ -16,8 +16,9 @@ import java.util.Map;
 
 /**
  * JWT验证拦截器
+ * @deprecated 使用`Security`的拦截器
  */
-@Configuration
+//@Configuration
 public class JWTInterceptor implements HandlerInterceptor {
 
     @Override

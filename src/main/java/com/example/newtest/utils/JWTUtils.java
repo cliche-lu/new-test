@@ -5,9 +5,11 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,17 +17,23 @@ import java.util.UUID;
 public class JWTUtils {
     private static String SIGNATURE = "token!@#$%^7890";
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     /**
      * 生成token
      *
      * @param map //传入payload
      * @return 返回token
      */
-    public String getToken(Map<String, String> map) {
+    public static String getToken(Map<String, String> map) {
+        if (map.isEmpty()) {
+            throw new RuntimeException("token创建失败");
+        }
         JWTCreator.Builder builder = JWT.create();
         map.forEach(builder::withClaim);
         Calendar instance = Calendar.getInstance();
-        instance.add(Calendar.SECOND, 60 * 60 * 24);
+        instance.add(Calendar.SECOND, 60 * 60 * 2);
         builder.withExpiresAt(instance.getTime());
         String string = UUID.randomUUID().toString();
         builder.withClaim(map.get("userId"), string);
@@ -40,6 +48,22 @@ public class JWTUtils {
      */
     public static void verify(String token) {
         JWT.require(Algorithm.HMAC256(SIGNATURE)).build().verify(token);
+        DecodedJWT decodedJWT = DecodedJWT(token);
+        Claim username = decodedJWT.getClaim("username");
+        if (username == null) {
+            throw new RuntimeException("token无效");
+        }
+        Claim userId = decodedJWT.getClaim("userId");
+        if (userId == null) {
+            throw new RuntimeException("token无效");
+        }
+        Claim tenantId = decodedJWT.getClaim("tenantId");
+        if (tenantId == null) {
+            throw new RuntimeException("token无效");
+        }
+//        租户给值
+        TenantContext.setTenantId(tenantId.asString());
+
     }
 
     /**
@@ -59,7 +83,13 @@ public class JWTUtils {
 
     public static void main(String[] args) {
 //        verify(null);
-        DecodedJWT decodedJWT = DecodedJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2tleSI6IjM3OTcyNDk0LWU0YjEtNDFmNi1iY2IxLTEyNGEwZDE0ZjNjOSIsInVzZXJSb2xlIjoiOSIsImV4cCI6MTcxNDU0MDYzOSwidXNlcklkIjoiMSIsImp0aSI6IjM3OTcyNDk0LWU0YjEtNDFmNi1iY2IxLTEyNGEwZDE0ZjNjOSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.lDsOSoL18GtEvZe8IyZj8kB7RMWdEyF4PEpDRRAIYZ4");
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("userId", "1");
+        map1.put("username", "admin");
+//        map1.put("password", "123456");
+        String token = JWTUtils.getToken(map1);
+        System.out.println("JWTUtils.getToken(map1) = " + token);
+        DecodedJWT decodedJWT = DecodedJWT(token);
         Claim payload = decodedJWT.getClaim("jwtId");
 //        String payload = decodedJWT.getPayload().;
         Claim userKey = decodedJWT.getClaim("user_key");

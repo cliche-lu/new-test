@@ -10,20 +10,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @Description: 攔截器
+ * @deprecated 使用`Security`的拦截器
  */
-@Component
+//@Component
 public class InterceptorConfig implements WebMvcConfigurer {
 
-   @Autowired
+//   @Autowired
    private JWTInterceptor myInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(myInterceptor)
-                .addPathPatterns("/api/v1/**")
+                .addPathPatterns("/**")
                 .excludePathPatterns("/user/**")
-                .excludePathPatterns("/api/v1/login/**")
-                .excludePathPatterns("/api/v1/sysUser/add")
+                .excludePathPatterns("/V1/login")
+                .excludePathPatterns("/sysUser/add")
         ;
 
     }

@@ -59,5 +59,9 @@ public class MyResult {
     public static MyResult fail(String errorMsg) {
         return new MyResult(false, errorMsg, 400,System.currentTimeMillis(),null);
     }
+
+    public static MyResult success(String token) {
+        return new MyResult(true, null, 200,System.currentTimeMillis(),token);
+    }
 }
 

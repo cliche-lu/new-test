@@ -7,17 +7,17 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serial;
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- *
  * @TableName sys_user
  */
 @EqualsAndHashCode(callSuper = true)
-@TableName(value ="sys_user")
+@TableName(value = "sys_user")
 @Data
-public class SysUser extends BaseEntity {
+public class SysUser extends BaseEntity implements Serializable {
 
 
     /**

@@ -20,7 +20,7 @@ public class SysUserController {
     //测试
     @GetMapping("/getUserByUserName")
     public MyResult getUserByUserName(@RequestParam String username) {
-        SysUser one = sysUserService.getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
+        SysUser one = sysUserService.getUserByUsername(username);
         return MyResult.ok(one);
     }
 }
