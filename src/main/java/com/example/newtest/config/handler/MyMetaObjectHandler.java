@@ -24,18 +24,20 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         log.info("开始插入填充...");
         LoginUser loginUser = SysUserLoginUtils.getLoginUser(redisUtil);
         String tenantId = TenantContext.getTenantId();
+        TenantContext.clear();
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "updateTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "delFlag", Integer.class, 0);
         this.strictInsertFill(metaObject, "reversion", Integer.class, 0);
         this.strictInsertFill(metaObject, "createBy", String.class, loginUser.getUsername());
-        this.strictInsertFill(metaObject, "updateBy", String.class, loginUser.getUsername());
         this.strictInsertFill(metaObject, "tenantId", String.class, tenantId);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("开始更新填充...");
+        LoginUser loginUser = SysUserLoginUtils.getLoginUser(redisUtil);
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "updateBy", String.class, loginUser.getUsername());
     }
 }
