@@ -28,7 +28,7 @@ public class MyResult {
      **/
     private String msg;
     /**
-     * 请求状态 200-成功 400-失败
+     * 请求状态 200-成功 500-失败 403-无权限
      **/
     private Integer status;
     /**
@@ -57,7 +57,11 @@ public class MyResult {
     }
 
     public static MyResult fail(String errorMsg) {
-        return new MyResult(false, errorMsg, 400,System.currentTimeMillis(),null);
+        return new MyResult(false, errorMsg, 500,System.currentTimeMillis(),null);
+    }
+
+    public static MyResult access(String errorMsg) {
+        return new MyResult(false, errorMsg, 403,System.currentTimeMillis(),null);
     }
 
     public static MyResult success(String token) {

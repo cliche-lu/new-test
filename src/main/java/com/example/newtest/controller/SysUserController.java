@@ -3,6 +3,7 @@ package com.example.newtest.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.newtest.common.MyResult;
+import com.example.newtest.enity.LoginUser;
 import com.example.newtest.enity.SysUser;
 import com.example.newtest.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
     public MyResult getUserByUserName(@RequestParam String username) {
         SysUser one = sysUserService.getUserByUsername(username);
+        return MyResult.ok(one);
+    }
+
+    @GetMapping("/getNowLoginUser")
+    @PreAuthorize("hasAuthority('sys:user:getNowLoginUser')")
+    public MyResult getNowLoginUser() {
+        LoginUser one = sysUserService.getNowLoginUser();
         return MyResult.ok(one);
     }
 }

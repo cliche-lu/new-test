@@ -49,6 +49,11 @@ public class SysUser extends BaseEntity implements Serializable {
     private String status;
 
     /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
      * 权限
      */
     @TableField(exist = false)

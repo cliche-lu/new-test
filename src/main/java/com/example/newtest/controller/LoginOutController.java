@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/loginOut")
+@RequestMapping("/")
 public class LoginOutController {
     @Autowired
     private SysUserService sysUserService;
 
-/*    @GetMapping("/")
-    public MyResult loginOut(@RequestParam String username, @RequestParam String password) {
-        sysUserService.loginOut(username, password);
+    @GetMapping("/loginOut")
+    public MyResult loginOut(@RequestParam String username) {
+        sysUserService.loginOut(username);
         return MyResult.ok("登出成功！");
-    }*/
+    }
 }

@@ -16,6 +16,7 @@ public class CustomTenantHandler implements TenantLineHandler {
         // 获取当前租户ID
         String tenantId = TenantContext.getTenantId();
         // 返回租户ID的表达式，LongValue 是 JSQLParser 中表示 bigint 类型的 class
+        TenantContext.clear();
         return new LongValue(tenantId);
     }
 

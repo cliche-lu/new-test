@@ -1,5 +1,6 @@
 package com.example.newtest.service;
 
+import com.example.newtest.enity.LoginUser;
 import com.example.newtest.enity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,8 @@ public interface SysUserService extends IService<SysUser> {
     SysUser getUserByUsername(String username);
 
     String login(String username, String password);
+
+    LoginUser getNowLoginUser();
+
+    void loginOut(String username);
 }

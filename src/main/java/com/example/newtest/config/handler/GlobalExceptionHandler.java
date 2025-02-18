@@ -4,6 +4,7 @@ import com.example.newtest.common.MyResult;
 import com.example.newtest.utils.GlobalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,7 +23,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public MyResult handlerException(Exception e) {
         logger.error(e.getMessage(), e);
-        return MyResult.fail("系统异常");
+        return MyResult.fail("系统异常:" + e.getMessage());
 
     }
 
@@ -34,7 +35,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public MyResult handlerNullPointerException(NullPointerException e) {
         logger.error(e.getMessage(), e);
-        return MyResult.fail("空指针异常");
+        return MyResult.fail("空指针异常:" + e.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public MyResult handlerNullPointerException(AccessDeniedException e) {
+        logger.error(e.getMessage(), e);
+        return MyResult.access("无权限:" + e.getMessage());
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public MyResult handlerNullPointerException(RuntimeException e) {
+        logger.error(e.getMessage(), e);
+        return MyResult.access("系统异常:" + e.getMessage());
     }
 
     /**

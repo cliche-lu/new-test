@@ -10,6 +10,7 @@ import com.example.newtest.mapper.SysUserMapper;
 import com.example.newtest.utils.GlobalException;
 import com.example.newtest.utils.JWTUtils;
 import com.example.newtest.utils.RedisUtil;
+import com.example.newtest.utils.SysUserLoginUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -67,17 +68,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         String token;
         if (sysUser != null) {
             if (sysUser.getPassword().equals(password)) {
+                if (redisUtil.hasKey(CommonRedisKeys.USER_LOGIN + sysUser.getUserId())) {
+                    throw new GlobalException("用户已在其他地方登录！");
+                }
                 HashMap<String, String> map = new HashMap<>();
                 map.put("username", username);
                 map.put("tenantId", sysUser.getTenantId());
                 map.put("id", sysUser.getId().toString());
-                String string = UUID.randomUUID().toString();
-                map.put("userId", string);
+                String userId = sysUser.getUserId();
+                map.put("userId", userId);
                 token = JWTUtils.getToken(map);
                 LoginUser loginUser = new LoginUser();
                 BeanUtils.copyProperties(sysUser, loginUser);
-                loginUser.setUserId(string);
-                redisUtil.set(CommonRedisKeys.USER_LOGIN + string, loginUser, 60 * 60 * 24);
+                loginUser.setUserId(userId);
+                redisUtil.set(CommonRedisKeys.USER_LOGIN + userId, loginUser, 60 * 60 * 2);
             } else {
                 throw new GlobalException("密码错误");
             }
@@ -85,6 +89,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             throw new GlobalException("用户不存在");
         }
         return token;
+    }
+
+    @Override
+    public LoginUser getNowLoginUser() {
+        return SysUserLoginUtils.getLoginUser(redisUtil);
+    }
+
+    @Override
+    public void loginOut(String username) {
+        LoginUser loginUser = SysUserLoginUtils.getLoginUser(redisUtil);
+        if (redisUtil.hasKey(CommonRedisKeys.USER_LOGIN + loginUser.getUserId())) {
+            redisUtil.del(CommonRedisKeys.USER_LOGIN + loginUser.getUserId());
+        }
     }
 }
 
