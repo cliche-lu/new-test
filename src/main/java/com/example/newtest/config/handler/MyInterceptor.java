@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@Configuration
+//@Configuration
 public class MyInterceptor implements HandlerInterceptor {
     /**
      * 预处理，controller方法调用之前

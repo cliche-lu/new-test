@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.example.newtest.mapper")
+@MapperScan("com.example.newtest.mapper.**")
 public class MybatisPlusConfig {
 
     @Autowired

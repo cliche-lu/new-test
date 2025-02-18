@@ -6,6 +6,8 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import org.springframework.stereotype.Component;
 
+import static com.example.newtest.common.CommonEnum.TENANT_TABLE;
+
 
 @Component
 public class CustomTenantHandler implements TenantLineHandler {
@@ -28,11 +30,12 @@ public class CustomTenantHandler implements TenantLineHandler {
     @Override
     public boolean ignoreTable(String tableName) {
         // 根据需要返回是否忽略该表
-        if (tableName.startsWith("sys_")) {
-            return true;
+        for(String temp: TENANT_TABLE){
+            if(temp.equalsIgnoreCase(tableName)){
+                return false;
+            }
         }
         return false;
     }
-
 
 }

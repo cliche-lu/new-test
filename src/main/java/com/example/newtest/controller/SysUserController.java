@@ -54,7 +54,7 @@ public class SysUserController {
     }
 
     @PostMapping("/update")
-//    @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
+//    @PreAuthorize("hasAuthority('sys:user:update')")
     public MyResult update(@RequestBody SysUser sysUser) {
         Assert.isTrue(sysUser.getId() != null, "id不能为空");
         SysUser byId = sysUserService.getById(sysUser);

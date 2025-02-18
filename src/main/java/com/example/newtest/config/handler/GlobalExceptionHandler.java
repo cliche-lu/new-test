@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public MyResult handlerNullPointerException(AccessDeniedException e) {
+    public MyResult accessDeniedException(AccessDeniedException e) {
         logger.error(e.getMessage(), e);
         return MyResult.access("无权限:" + e.getMessage());
     }
@@ -48,6 +48,12 @@ public class GlobalExceptionHandler {
     public MyResult handlerNullPointerException(RuntimeException e) {
         logger.error(e.getMessage(), e);
         return MyResult.access("系统异常:" + e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public MyResult handlerNullPointerException(IllegalArgumentException e) {
+        logger.error(e.getMessage(), e);
+        return MyResult.access("操作异常:" + e.getMessage());
     }
 
     /**
