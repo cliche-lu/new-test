@@ -1,5 +1,7 @@
 package com.example.newtest.utils;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 public class StringUtils {
 
     /**
@@ -10,7 +12,6 @@ public class StringUtils {
 
     public static String passwordEncoder(String password) {
         //        密码加密
-//        return new BCryptPasswordEncoder().encode(password);
-        return password;
+        return new BCryptPasswordEncoder().encode(password);
     }
 }

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,6 +19,7 @@ import java.util.Set;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     Set<String> getUserRoles(Long id);
+    List<SysPermission> getUserRoles1(Long id);
 }
 
 

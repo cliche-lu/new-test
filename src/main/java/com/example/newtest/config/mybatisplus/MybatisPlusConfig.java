@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import com.example.newtest.config.handler.CustomDataPermissionHandler;
 import com.example.newtest.config.handler.CustomTenantHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.units.qual.A;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("com.example.newtest.mapper.**")
+@Slf4j
 public class MybatisPlusConfig {
 
     @Autowired
     private CustomTenantHandler customTenantHandler;
-
-    @Autowired
-    private CustomDataPermissionHandler customDataPermissionHandler;
 
     /**
      * 添加分页插件
@@ -31,8 +30,9 @@ public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-//        乐观锁插件 TODO 此插件存在问题，待排查处理
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+//        数据权限插件 存在疑惑，待处理
+//        已处理，参照此处写内容即可
+        interceptor.addInnerInterceptor(new DataPermissionInterceptor(new CustomDataPermissionHandler()));
 //        多租户插件
         /*
             多租户不等于权限过滤，租户之间是完全隔离的。
@@ -42,8 +42,9 @@ public class MybatisPlusConfig {
         TenantLineInnerInterceptor tenantInterceptor = new TenantLineInnerInterceptor();
         tenantInterceptor.setTenantLineHandler(customTenantHandler);
         interceptor.addInnerInterceptor(tenantInterceptor);
-//        数据权限插件 存在疑惑，待处理
-        interceptor.addInnerInterceptor(customDataPermissionHandler);
+//        乐观锁插件 此插件存在问题，待排查处理
+//        问题已经处理：乐观锁插件需要前端传入： 版本字段`reversion`
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
 //        分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL)); // 如果配置多个插件, 切记分页最后添加
         // 如果有多数据源可以不配具体类型, 否则都建议配上具体的 DbType

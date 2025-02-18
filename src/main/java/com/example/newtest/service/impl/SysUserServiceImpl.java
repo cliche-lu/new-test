@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.newtest.common.CommonRedisKeys;
 import com.example.newtest.enity.LoginUser;
+import com.example.newtest.enity.SysPermission;
 import com.example.newtest.enity.SysUser;
 import com.example.newtest.service.SysUserService;
 import com.example.newtest.mapper.SysUserMapper;
@@ -13,13 +14,11 @@ import com.example.newtest.utils.RedisUtil;
 import com.example.newtest.utils.SysUserLoginUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 /**
  * @author 93285
@@ -56,8 +55,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
                 new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username)
         );
         Assert.isTrue(sysUser != null, "用户不存在");
-        Set<String> set = this.baseMapper.getUserRoles(sysUser.getId());
-        sysUser.setRoles(set);
+        List<SysPermission> userRoles = this.baseMapper.getUserRoles1(sysUser.getId());
+        sysUser.setRoles(userRoles);
         redisUtil.set(CommonRedisKeys.USER_INFO + username, sysUser, 60 * 60 * 24);
         return sysUser;
     }

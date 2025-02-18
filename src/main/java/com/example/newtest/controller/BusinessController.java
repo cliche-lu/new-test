@@ -19,7 +19,7 @@ public class BusinessController {
     @Autowired
     private BusinessTableService businessTableService;
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('business:list')")
+//    @PreAuthorize("hasAuthority('business:list')")
     public MyResult loginOut( BusinessTable businessTable) {
         List<BusinessTable> businessTables = businessTableService.listPage(businessTable);
         return MyResult.ok(businessTables);

@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-
+/**
+ * @deprecated 弃用
+ */
 //@Configuration
 public class MyInterceptor implements HandlerInterceptor {
     /**

@@ -18,6 +18,8 @@ public class CommonEnum {
         TENANT_TABLE.add("sys_permission");
         TENANT_TABLE.add("sys_role");
         TENANT_TABLE.add("sys_user");
+        TENANT_TABLE.add("sys_user_role");
+        TENANT_TABLE.add("sys_role_permission");
 
     }
 }

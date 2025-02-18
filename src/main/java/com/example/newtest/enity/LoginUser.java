@@ -1,16 +1,12 @@
 package com.example.newtest.enity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * <p>
@@ -59,9 +55,11 @@ public class LoginUser implements Serializable {
 	 * 状态
 	 */
 	private String status;
+
 	/**
 	 * 权限
 	 */
-	private Set<String> roles;
+	@TableField(exist = false)
+	private List<SysPermission> roles;
 
 }

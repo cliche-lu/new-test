@@ -46,40 +46,6 @@ public class BusinessTable extends BaseEntity implements Serializable {
      */
     private String others;
 
-    /**
-     * 创建人
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 修改人
-     */
-    private String updateBy;
-
-    /**
-     * 修改时间
-     */
-    private Date updateTime;
-
-    /**
-     * 0表示未删除,1表示删除
-     */
-    private Integer delFlag;
-
-    /**
-     * 版本号
-     */
-    private Integer reversion;
-
-    /**
-     * 多租户
-     */
-    private String tenantId;
 
     @Serial
     @TableField(exist = false)

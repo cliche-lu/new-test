@@ -1,10 +1,10 @@
 package com.example.newtest.config.otherConfig;
 
-import cn.hutool.jwt.Claims;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.newtest.common.CommonRedisKeys;
 import com.example.newtest.enity.LoginUser;
+import com.example.newtest.enity.SysPermission;
 import com.example.newtest.utils.JWTUtils;
 import com.example.newtest.utils.RedisUtil;
 import jakarta.servlet.FilterChain;
@@ -18,15 +18,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Configuration
 @EnableMethodSecurity
@@ -64,11 +60,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         //存入SecurityContextHolder
         //TODO 获取权限信息封装到Authentication中
-        Set<String> roles = loginUser.getRoles();
+        List<SysPermission> roles1 = loginUser.getRoles();
         //将permissions转成数组
         Collection<GrantedAuthority> authorities = new HashSet<>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
+        for (SysPermission role : roles1) {
+            authorities.add(new SimpleGrantedAuthority(role.getPerms()));
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

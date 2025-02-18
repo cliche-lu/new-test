@@ -65,6 +65,7 @@ public class JWTUtils {
 //        租户给值
         TenantContext.setTenantId(tenantId.asString());
         TenantContext.setUserId(userId.asString());
+        TenantContext.setUsername(username.asString());
 
     }
 

@@ -40,4 +40,21 @@ public class TenantContext {
         userId.remove();
     }
 
+    private static final ThreadLocal<String> username = new ThreadLocal<>();
+
+    // 设置用户名
+    public static void setUsername(String id) {
+        username.set(id);
+    }
+
+    // 获取用户名
+    public static String getUsername() {
+        return username.get();
+    }
+
+    // 清除用户名
+    public static void clearUsername() {
+        username.remove();
+    }
+
 }
