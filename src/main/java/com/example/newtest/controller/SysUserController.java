@@ -6,8 +6,10 @@ import com.example.newtest.common.MyResult;
 import com.example.newtest.enity.LoginUser;
 import com.example.newtest.enity.SysUser;
 import com.example.newtest.service.SysUserService;
+import com.example.newtest.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -17,7 +19,8 @@ import java.util.UUID;
 public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
-
+    @Autowired
+    private RedisUtil redisUtil;
     //测试
     @GetMapping("/getUserByUserName")
     @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
@@ -44,7 +47,19 @@ public class SysUserController {
     @DeleteMapping("/delete")
 //    @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
     public MyResult add(@RequestParam Long id) {
+        SysUser byId = sysUserService.getById(id);
+        redisUtil.del(byId.getUserId());
         sysUserService.removeById(id);
         return MyResult.success("删除成功！");
+    }
+
+    @PostMapping("/update")
+//    @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
+    public MyResult update(@RequestBody SysUser sysUser) {
+        Assert.isTrue(sysUser.getId() != null, "id不能为空");
+        SysUser byId = sysUserService.getById(sysUser);
+        redisUtil.del(byId.getUserId());
+        sysUserService.updateById(sysUser);
+        return MyResult.success("修改成功！");
     }
 }

@@ -37,7 +37,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         log.info("开始更新填充...");
         LoginUser loginUser = SysUserLoginUtils.getLoginUser(redisUtil);
-        this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
-        this.strictInsertFill(metaObject, "updateBy", String.class, loginUser.getUsername());
+        this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
+        this.strictUpdateFill(metaObject, "updateBy", String.class, loginUser.getUsername());
     }
 }

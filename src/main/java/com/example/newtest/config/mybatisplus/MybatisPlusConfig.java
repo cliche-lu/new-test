@@ -31,7 +31,7 @@ public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-//        乐观锁插件
+//        乐观锁插件 TODO 此插件存在问题，待排查处理
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
 //        多租户插件
         /*
