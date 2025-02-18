@@ -1,4 +1,4 @@
-package com.example.newtest.unUse;
+package com.example.newtest.config.unUse;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;

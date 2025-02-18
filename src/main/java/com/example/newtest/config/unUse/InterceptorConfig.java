@@ -1,4 +1,4 @@
-package com.example.newtest.unUse;
+package com.example.newtest.config.unUse;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
