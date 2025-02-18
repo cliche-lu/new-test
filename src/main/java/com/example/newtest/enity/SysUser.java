@@ -7,9 +7,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * @TableName sys_user
@@ -44,6 +47,12 @@ public class SysUser extends BaseEntity implements Serializable {
      * 状态
      */
     private String status;
+
+    /**
+     * 权限
+     */
+    @TableField(exist = false)
+    private Set<String> roles;
 
     @Serial
     @TableField(exist = false)

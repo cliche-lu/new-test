@@ -27,4 +27,15 @@
         update_by,update_time,del_flag,
         reversion
     </sql>
+    <select id="getUserRoles" resultType="string">
+        SELECT perms
+        FROM sys_permission
+        WHERE id in (SELECT permission
+                     FROM sys_role_permission
+                     WHERE role_id in (SELECT id
+                                       FROM sys_role
+                                       WHERE id in (SELECT role_id FROM sys_user_role WHERE user_id = #{id})))
+        ;
+
+    </select>
 </mapper>

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/V1")
+@RequestMapping("/")
 public class LoginController {
     @Autowired
     private SysUserService sysUserService;

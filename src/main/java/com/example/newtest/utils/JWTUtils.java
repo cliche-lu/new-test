@@ -35,9 +35,6 @@ public class JWTUtils {
         Calendar instance = Calendar.getInstance();
         instance.add(Calendar.SECOND, 60 * 60 * 2);
         builder.withExpiresAt(instance.getTime());
-        String string = UUID.randomUUID().toString();
-        builder.withClaim(map.get("userId"), string);
-        builder.withJWTId(string);
         return builder.sign(Algorithm.HMAC256(SIGNATURE));
     }
 
@@ -59,6 +56,10 @@ public class JWTUtils {
         }
         Claim tenantId = decodedJWT.getClaim("tenantId");
         if (tenantId == null) {
+            throw new RuntimeException("token无效");
+        }
+        Claim id = decodedJWT.getClaim("id");
+        if (id == null) {
             throw new RuntimeException("token无效");
         }
 //        租户给值

@@ -27,6 +27,9 @@ public class CustomTenantHandler implements TenantLineHandler {
     @Override
     public boolean ignoreTable(String tableName) {
         // 根据需要返回是否忽略该表
+        if (tableName.startsWith("sys_")) {
+            return true;
+        }
         return false;
     }
 

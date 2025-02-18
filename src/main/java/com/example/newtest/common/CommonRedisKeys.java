@@ -6,5 +6,6 @@ public class CommonRedisKeys {
 
     }
     public static final String USER_TOKEN = "user_token:";
+    public static final String USER_LOGIN = "login:";
     public static final String USER_INFO = "user_info:";
 }

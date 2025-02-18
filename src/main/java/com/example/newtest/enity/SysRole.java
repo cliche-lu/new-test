@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,6 +40,7 @@ public class SysRole extends BaseEntity implements Serializable {
      */
     private String columnRole;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
