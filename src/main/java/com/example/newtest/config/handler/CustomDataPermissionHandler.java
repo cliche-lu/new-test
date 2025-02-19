@@ -38,6 +38,7 @@ public class CustomDataPermissionHandler implements MultiDataPermissionHandler, 
                 // 如果表名不以 "sys_" 开头，则添加数据权限相关的 SQL 片段
                 if (!"admin".equals(username)) {
                     sqlSegment = "create_by = '" + username + "'";
+//                    此处可以给业务表中加一个共享类型字段：owen/all/其他
                 }
             }
             log.info("---------进入数据权限返回sql字符串---- ：{}", sqlSegment);

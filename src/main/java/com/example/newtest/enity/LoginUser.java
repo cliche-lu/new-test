@@ -62,4 +62,7 @@ public class LoginUser implements Serializable {
 	@TableField(exist = false)
 	private List<SysPermission> roles;
 
+//	@TableField(exist = false)
+//	private Set<String> roles;
+
 }

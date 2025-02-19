@@ -35,7 +35,12 @@ public class SysUserController {
         LoginUser one = sysUserService.getNowLoginUser();
         return MyResult.ok(one);
     }
-
+    @GetMapping("/getNowLoginUser1")
+//    @PreAuthorize("hasAuthority('sys:user:getNowLoginUser')")
+    public MyResult getNowLoginUser1() {
+        LoginUser one = sysUserService.getNowLoginUser1();
+        return MyResult.ok(one);
+    }
     @PostMapping("/add")
 //    @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
     public MyResult add(@RequestBody SysUser sysUser) {

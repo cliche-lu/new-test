@@ -8,10 +8,7 @@ import com.example.newtest.enity.SysPermission;
 import com.example.newtest.enity.SysUser;
 import com.example.newtest.service.SysUserService;
 import com.example.newtest.mapper.SysUserMapper;
-import com.example.newtest.utils.GlobalException;
-import com.example.newtest.utils.JWTUtils;
-import com.example.newtest.utils.RedisUtil;
-import com.example.newtest.utils.SysUserLoginUtils;
+import com.example.newtest.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,6 +90,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Override
     public LoginUser getNowLoginUser() {
         return SysUserLoginUtils.getLoginUser(redisUtil);
+    }
+    @Override
+    public LoginUser getNowLoginUser1() {
+        return SecurityUtils.getSysUser();
     }
 
     @Override

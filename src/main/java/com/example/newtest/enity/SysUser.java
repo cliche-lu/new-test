@@ -48,6 +48,9 @@ public class SysUser extends BaseEntity implements Serializable {
      */
     private String userId;
 
+    @TableField(exist = false)
+    private Long deptId;
+
 
 
     @TableField(exist = false)

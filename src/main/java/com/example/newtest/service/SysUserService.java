@@ -16,6 +16,7 @@ public interface SysUserService extends IService<SysUser> {
     String login(String username, String password);
 
     LoginUser getNowLoginUser();
+    LoginUser getNowLoginUser1();
 
     void loginOut(String username);
 }
