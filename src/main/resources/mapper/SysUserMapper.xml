@@ -38,8 +38,8 @@
         ;
 
     </select>
-    <select id="getUserRoles1" resultType="com.example.newtest.enity.SysPermission">
-        SELECT *
+    <select id="getUserRoles1" resultType="string">
+        SELECT perms
         FROM sys_permission
         WHERE id in (SELECT permission
                      FROM sys_role_permission

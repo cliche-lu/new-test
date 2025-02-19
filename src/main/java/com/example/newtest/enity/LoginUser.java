@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -60,7 +61,7 @@ public class LoginUser implements Serializable {
 	 * 权限
 	 */
 	@TableField(exist = false)
-	private List<SysPermission> roles;
+	private Set<String> roles;
 
 //	@TableField(exist = false)
 //	private Set<String> roles;

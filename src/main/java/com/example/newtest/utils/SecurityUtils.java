@@ -44,7 +44,7 @@ public class SecurityUtils {
      * 超级管理员忽视任何权限判断
      */
     public static boolean isRoot() {
-        List<SysPermission> roles = getRoles();
+        Set<String> roles = getRoles();
         return roles.contains("root");
     }
 
@@ -58,7 +58,7 @@ public class SecurityUtils {
     }
 
 
-    public static List<SysPermission> getRoles() {
+    public static Set<String> getRoles() {
         return getSysUserDetails().getRoles();
     }
 

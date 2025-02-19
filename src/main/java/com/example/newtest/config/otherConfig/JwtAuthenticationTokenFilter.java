@@ -60,11 +60,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         //存入SecurityContextHolder
         //TODO 获取权限信息封装到Authentication中
-        List<SysPermission> roles1 = loginUser.getRoles();
+        Set<String> roles1 = loginUser.getRoles();
         //将permissions转成数组
         Collection<GrantedAuthority> authorities = new HashSet<>();
-        for (SysPermission role : roles1) {
-            authorities.add(new SimpleGrantedAuthority(role.getPerms()));
+        for (String role : roles1) {
+            authorities.add(new SimpleGrantedAuthority(role));
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

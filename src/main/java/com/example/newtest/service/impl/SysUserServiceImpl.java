@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 93285
@@ -52,7 +53,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
                 new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username)
         );
         Assert.isTrue(sysUser != null, "用户不存在");
-        List<SysPermission> userRoles = this.baseMapper.getUserRoles1(sysUser.getId());
+        Set<String> userRoles = this.baseMapper.getUserRoles1(sysUser.getId());
         sysUser.setRoles(userRoles);
         redisUtil.set(CommonRedisKeys.USER_INFO + username, sysUser, 60 * 60 * 24);
         return sysUser;

@@ -30,12 +30,12 @@ public class SysUserDetails implements UserDetails {
 
     private Set<String> permissions;
 
-    private List<SysPermission> roles;
+    private Set<String> roles;
 
     private Integer dataScope;
 
 
-    public SysUserDetails(SysUser user, Set<String> permissions, List<SysPermission> roles, String username, Integer dataScope) {
+    public SysUserDetails(SysUser user, Set<String> permissions, Set<String> roles, String username, Integer dataScope) {
         this.sysUser = user;
         this.permissions = permissions;
         this.roles = roles;

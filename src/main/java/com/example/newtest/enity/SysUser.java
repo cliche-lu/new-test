@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -54,7 +55,7 @@ public class SysUser extends BaseEntity implements Serializable {
 
 
     @TableField(exist = false)
-    private List<SysPermission> roles;
+    private Set<String> roles;
 
     @Serial
     @TableField(exist = false)

@@ -19,7 +19,7 @@ import java.util.Set;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     Set<String> getUserRoles(Long id);
-    List<SysPermission> getUserRoles1(Long id);
+    Set<String> getUserRoles1(Long id);
 }
 
 
