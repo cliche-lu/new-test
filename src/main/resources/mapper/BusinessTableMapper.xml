@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.newtest.mapper.BusinessTableMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.newtest.enity.BusinessTable">
+    <resultMap id="BaseResultMap" type="com.cliche.newtest.enity.BusinessTable">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="remak" column="remak" jdbcType="VARCHAR"/>
             <result property="imag" column="imag" jdbcType="VARCHAR"/>

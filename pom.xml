@@ -183,10 +183,27 @@
                         </exclude>
                     </excludes>
                     <layout>ZIP</layout>
-                    <mainClass>com.example.newtest.NewTestApplication</mainClass>
+                    <mainClass>com.cliche.newtest.NewTestApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <!--需要部署到maven远程仓库就必须要配置部署管理-->
+<!--    <distributionManagement>
+        &lt;!&ndash;发布版&ndash;&gt;
+        <repository>
+            <id>maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://10.10.5.124:8081/repository/maven-releases/</url>
+        </repository>
+        &lt;!&ndash;快照版&ndash;&gt;
+        <snapshotRepository>
+            &lt;!&ndash;id和setting中server镜像id对应即可&ndash;&gt;
+            <id>maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://10.10.5.124:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>-->
 
 </project>

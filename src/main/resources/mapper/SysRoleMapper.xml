@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.newtest.mapper.SysRoleMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.newtest.enity.SysRole">
+    <resultMap id="BaseResultMap" type="com.cliche.newtest.enity.SysRole">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="roleType" column="role_type" jdbcType="VARCHAR"/>
             <result property="allowTenant" column="allow_tenant" jdbcType="VARCHAR"/>
