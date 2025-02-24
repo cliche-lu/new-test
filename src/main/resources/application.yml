@@ -3,4 +3,3 @@ spring:
 #    active: prod  #服务器
 #    active: dev  #本地
     active: test  #虚拟机  配置文件已此为准，其余使用时需要修改
-#    active: xu  #虚拟机  配置文件已此为准，其余使用时需要修改
