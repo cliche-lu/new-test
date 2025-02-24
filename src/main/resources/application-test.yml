@@ -33,10 +33,11 @@ spring:
     name: book_server
 
   thymeleaf:
-    prefix: classpath:/static/
+    prefix: classpath:/templates/
     suffix: .html
 server:
   port: 9999
+  address: localhost
 
 mybatis-plus:
   global-config:
