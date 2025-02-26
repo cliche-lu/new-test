@@ -2,9 +2,9 @@ spring:
   cache:
     type: redis
   datasource:
-    url: jdbc:mysql://192.168.1.222:3306/new-test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useaffectedrows=true
+    url: jdbc:mysql://localhost:3306/new-test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useaffectedrows=true
     username: root
-    password: Cliche123,
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0????SPI??????
 #  rabbitmq:
 #    host: 192.168.1.222
@@ -26,9 +26,9 @@ spring:
   data:
    redis:
     database: 1
-    host: 192.168.1.222
+    host: localhost
     port: 6379
-    password: "000415"
+#    password: "000415"
   application:
     name: book_server
 

@@ -1,6 +1,7 @@
 package com.cliche.newtest.enity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,6 +21,10 @@ public class BaseEntity implements Serializable {
      * 创建时间
      */
     @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @JsonFormat(
+            timezone = "GMT+8",
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     private Date createTime;
 
     /**
@@ -31,6 +36,10 @@ public class BaseEntity implements Serializable {
     /**
      * 修改时间
      */
+    @JsonFormat(
+            timezone = "GMT+8",
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 

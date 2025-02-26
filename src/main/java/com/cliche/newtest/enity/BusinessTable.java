@@ -1,11 +1,14 @@
 package com.cliche.newtest.enity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -48,6 +51,17 @@ public class BusinessTable extends BaseEntity implements Serializable {
      */
     private String share;
 
+    @JsonFormat(
+            timezone = "GMT+8",
+            pattern = "yyyy-MM-dd"
+    )
+    private Date joinDateStart;
+
+    @JsonFormat(
+            timezone = "GMT+8",
+            pattern = "yyyy-MM-dd"
+    )
+    private Date joinDateEnd;
 
     @Serial
     @TableField(exist = false)

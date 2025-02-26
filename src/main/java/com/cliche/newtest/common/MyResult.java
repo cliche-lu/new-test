@@ -64,8 +64,8 @@ public class MyResult {
         return new MyResult(false, errorMsg, 403,System.currentTimeMillis(),null);
     }
 
-    public static MyResult success(String token) {
-        return new MyResult(true, null, 200,System.currentTimeMillis(),token);
+    public static MyResult success(String data) {
+        return new MyResult(true, null, 200,System.currentTimeMillis(),data);
     }
 }
 

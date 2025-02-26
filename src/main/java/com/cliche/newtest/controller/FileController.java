@@ -119,15 +119,11 @@ public class FileController {
 
         Optional<File> file = fileService.getFileById(id);
 
-        if (file.isPresent()) {
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "fileName=\"" + file.get().getName() + "\"")
-                    .header(HttpHeaders.CONTENT_TYPE, file.get().getContentType())
-                    .header(HttpHeaders.CONTENT_LENGTH, file.get().getSize() + "").header("Connection", "close")
-                    .body(file.get().getContent().getData());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("File was not fount");
-        }
+        return file.<ResponseEntity<Object>>map(value -> ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "fileName=\"" + value.getName() + "\"")
+                .header(HttpHeaders.CONTENT_TYPE, value.getContentType())
+                .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(value.getSize())).header("Connection", "close")
+                .body(value.getContent().getData())).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("File was not fount"));
 
     }
 
@@ -166,19 +162,19 @@ public class FileController {
      */
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
+    public MyResult handleFileUpload(@RequestParam("file") MultipartFile file) {
         File returnFile = null;
         try {
             File f = new File(file.getOriginalFilename(), file.getContentType(), file.getSize(),
                     new Binary(file.getBytes()));
             f.setMd5(MD5Util.getMD5(file.getInputStream()));
             returnFile = fileService.saveFile(f);
-            String path = "//" + serverAddress + ":" + serverPort + "/view/" + returnFile.getId();
-            return ResponseEntity.status(HttpStatus.OK).body(path);
+            String path = "http://" + serverAddress + ":" + serverPort + "/file/view/" + returnFile.getId();
+            return MyResult.success(path);
 
         } catch (IOException | NoSuchAlgorithmException ex) {
             ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+            return MyResult.fail(ex.getMessage());
         }
 
     }

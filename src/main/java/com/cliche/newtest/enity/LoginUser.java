@@ -1,5 +1,6 @@
 package com.cliche.newtest.enity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -61,7 +62,10 @@ public class LoginUser implements Serializable {
 	 */
 	@TableField(exist = false)
 	private Set<String> roles;
-
+	/**
+	 * 多租户
+	 */
+	private String tenantId;
 //	@TableField(exist = false)
 //	private Set<String> roles;
 

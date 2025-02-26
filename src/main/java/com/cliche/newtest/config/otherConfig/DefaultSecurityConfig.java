@@ -53,10 +53,9 @@ public class DefaultSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // 禁用 CSRF 保护
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // 配置 CORS
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll() // 允许所有用户访问登录接口
-                        .requestMatchers("/index").permitAll() // 允许所有用户访问登录接口
-                        .requestMatchers(HttpMethod.GET,"/**.html","/").permitAll() // 允许所有用户访问登录接口 此配置可以使用
-                        .requestMatchers(HttpMethod.GET,"/*/**.html").permitAll() // 允许所有用户访问登录接口 此配置不能用？？再进行测试
+                        .requestMatchers("/login","/sysUser/add","/file/upload","/file/view/*").permitAll() // 允许所有用户访问登录接口
+                        .requestMatchers(HttpMethod.GET,"/*.html","/").permitAll() // 允许所有用户访问登录接口 此配置可以使用
+                        .requestMatchers(HttpMethod.GET,"/*.html").permitAll() // 允许所有用户访问登录接口 此配置不能用？？再进行测试
                         .anyRequest().authenticated() // 其他请求都需要身份验证
                 )
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)

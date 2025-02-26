@@ -4,13 +4,17 @@ package com.cliche.newtest.controller;
 import com.cliche.newtest.common.MyResult;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.enity.SysUser;
+import com.cliche.newtest.enity.vo.SysUserVo;
 import com.cliche.newtest.service.SysUserService;
+import com.cliche.newtest.utils.CustomMd5PasswordEncoder;
 import com.cliche.newtest.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +24,9 @@ public class SysUserController {
     private SysUserService sysUserService;
     @Autowired
     private RedisUtil redisUtil;
+
+    @Value("${tenantId}")
+    private String reTenantId;
     //测试
     @GetMapping("/getUserByUserName")
     @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
@@ -40,10 +47,22 @@ public class SysUserController {
         LoginUser one = sysUserService.getNowLoginUser1();
         return MyResult.ok(one);
     }
+    @GetMapping("/getUserList")
+//    @PreAuthorize("hasAuthority('sys:user:getNowLoginUser')")
+    public MyResult getUserList() {
+        List<SysUserVo> list = sysUserService.getUserList();
+        return MyResult.ok(list);
+    }
     @PostMapping("/add")
 //    @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
     public MyResult add(@RequestBody SysUser sysUser) {
+        SysUser userByUsername = sysUserService.getUserByUsername(sysUser.getUsername());
+        Assert.isNull(userByUsername, "用户名已存在！");
         sysUser.setUserId(String.valueOf(UUID.randomUUID()));
+        sysUser.setTenantId(reTenantId);
+        sysUser.setCreateBy(sysUser.getUsername());
+        CustomMd5PasswordEncoder md5 = new CustomMd5PasswordEncoder();
+        sysUser.setPassword(md5.encode(sysUser.getPassword()));
         sysUserService.save(sysUser);
         return MyResult.success("新增成功！");
     }

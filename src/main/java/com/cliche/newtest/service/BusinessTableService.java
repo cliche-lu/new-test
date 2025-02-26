@@ -1,5 +1,7 @@
 package com.cliche.newtest.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cliche.newtest.enity.BusinessTable;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +14,7 @@ import java.util.List;
 */
 public interface BusinessTableService extends IService<BusinessTable> {
 
-    List<BusinessTable> listPage(BusinessTable businessTable);
+    List<BusinessTable> listNoPage(BusinessTable businessTable);
+
+    IPage<BusinessTable> listPage(Page<BusinessTable> page, BusinessTable businessTable);
 }

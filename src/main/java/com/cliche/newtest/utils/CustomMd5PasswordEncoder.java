@@ -23,4 +23,5 @@ public class CustomMd5PasswordEncoder implements PasswordEncoder {
         // 通过md5校验
         return encodedPassword.equals(Arrays.toString(DigestUtils.md5Digest(rawPassword.toString().getBytes())));
     }
+
 }

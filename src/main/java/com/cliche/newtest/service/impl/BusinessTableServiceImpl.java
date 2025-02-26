@@ -2,6 +2,8 @@ package com.cliche.newtest.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cliche.newtest.enity.BusinessTable;
 import com.cliche.newtest.service.BusinessTableService;
@@ -21,8 +23,13 @@ public class BusinessTableServiceImpl extends ServiceImpl<BusinessTableMapper, B
         implements BusinessTableService {
 
     @Override
-    public List<BusinessTable> listPage(BusinessTable businessTable) {
+    public List<BusinessTable> listNoPage(BusinessTable businessTable) {
         return this.baseMapper.selectList(getWrapper(businessTable));
+    }
+
+    @Override
+    public IPage<BusinessTable> listPage(Page<BusinessTable> page, BusinessTable businessTable) {
+      return   this.baseMapper.selectPage(page, getWrapper(businessTable));
     }
 
     private Wrapper<BusinessTable> getWrapper(BusinessTable businessTable) {
@@ -32,6 +39,8 @@ public class BusinessTableServiceImpl extends ServiceImpl<BusinessTableMapper, B
             businessTableLambdaUpdateWrapper.like(StringUtils.hasLength(businessTable.getRemark()), BusinessTable::getRemark, businessTable.getRemark());
             businessTableLambdaUpdateWrapper.like(StringUtils.hasLength(businessTable.getAddress()), BusinessTable::getAddress, businessTable.getAddress());
             businessTableLambdaUpdateWrapper.like(StringUtils.hasLength(businessTable.getOthers()), BusinessTable::getOthers, businessTable.getOthers());
+            businessTableLambdaUpdateWrapper.le(businessTable.getJoinDateStart()!=null, BusinessTable::getJoinDateStart, businessTable.getJoinDateStart());
+            businessTableLambdaUpdateWrapper.ge(businessTable.getJoinDateEnd()!=null, BusinessTable::getJoinDateEnd, businessTable.getJoinDateEnd());
 
         }
         return businessTableLambdaUpdateWrapper;

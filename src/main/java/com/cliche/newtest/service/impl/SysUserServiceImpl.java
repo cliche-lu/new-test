@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cliche.newtest.common.CommonRedisKeys;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.enity.SysUser;
+import com.cliche.newtest.enity.vo.SysUserVo;
 import com.cliche.newtest.service.SysUserService;
 import com.cliche.newtest.mapper.SysUserMapper;
 import com.cliche.newtest.utils.*;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -62,10 +64,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         SysUser sysUser = this.getUserByUsername(username);
         String token;
         if (sysUser != null) {
-            if (sysUser.getPassword().equals(password)) {
-                if (redisUtil.hasKey(CommonRedisKeys.USER_LOGIN + sysUser.getUserId())) {
-                    throw new GlobalException("用户已在其他地方登录！");
-                }
+            boolean matches = new CustomMd5PasswordEncoder().matches(password, sysUser.getPassword());
+            if (matches) {
+//                if (redisUtil.hasKey(CommonRedisKeys.USER_LOGIN + sysUser.getUserId())) {
+//                    throw new GlobalException("用户已在其他地方登录！");
+//                }
                 HashMap<String, String> map = new HashMap<>();
                 map.put("username", username);
                 map.put("tenantId", sysUser.getTenantId());
@@ -101,6 +104,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         if (redisUtil.hasKey(CommonRedisKeys.USER_LOGIN + loginUser.getUserId())) {
             redisUtil.del(CommonRedisKeys.USER_LOGIN + loginUser.getUserId());
         }
+    }
+
+    @Override
+    public List<SysUserVo> getUserList() {
+        LoginUser sysUser = SecurityUtils.getSysUser();
+        return this.baseMapper.getUserList(sysUser.getTenantId());
     }
 }
 
