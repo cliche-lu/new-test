@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 /**
  * 异常处理器
@@ -47,13 +48,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public MyResult handlerNullPointerException(RuntimeException e) {
         logger.error(e.getMessage(), e);
-        return MyResult.access("系统异常:" + e.getMessage());
+        return MyResult.serverError("系统异常:" + e.getMessage(), 500);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public MyResult handlerNullPointerException(IllegalArgumentException e) {
+    public MyResult handlerIllegalArgumentException(IllegalArgumentException e) {
         logger.error(e.getMessage(), e);
-        return MyResult.access("操作异常:" + e.getMessage());
+        return MyResult.serverError("操作异常:" + e.getMessage(),500);
+    }
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public MyResult handlerMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        logger.error(e.getMessage(), e);
+        return MyResult.serverError("操作异常:" + e.getMessage(),500);
     }
 
     /**

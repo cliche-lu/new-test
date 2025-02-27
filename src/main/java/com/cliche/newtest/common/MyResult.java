@@ -30,7 +30,7 @@ public class MyResult {
     /**
      * 请求状态 200-成功 500-失败 403-无权限
      **/
-    private Integer status;
+    private Integer code;
     /**
      * 当前时间戳
      **/
@@ -62,6 +62,9 @@ public class MyResult {
 
     public static MyResult access(String errorMsg) {
         return new MyResult(false, errorMsg, 403,System.currentTimeMillis(),null);
+    }
+    public static MyResult serverError(String errorMsg, Integer code) {
+        return new MyResult(false, errorMsg, code,System.currentTimeMillis(),null);
     }
 
     public static MyResult success(String data) {

@@ -24,7 +24,7 @@ public class SecurityUtils {
         try {
             return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (Exception e) {
-            throw new GlobalException("暂未登录或token已失效");
+            throw new GlobalException("暂未登录或token已失效",e);
         }
     }
 
@@ -32,7 +32,7 @@ public class SecurityUtils {
         try {
             return (SysUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (Exception e) {
-            throw new GlobalException("暂未登录或token已失效");
+            throw new GlobalException("暂未登录或token已失效",e);
         }
     }
 
@@ -66,7 +66,7 @@ public class SecurityUtils {
             Authentication auth = ctx.getAuthentication();
             return (LoginUser) auth.getPrincipal();
         } catch (Exception e) {
-            throw new GlobalException("暂未登录或token已失效");
+            throw new GlobalException("暂未登录或token已失效",e);
         }
     }
 
