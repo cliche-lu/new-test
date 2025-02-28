@@ -5,7 +5,7 @@
 用于分享奇闻趣事、棋谱等内容
 支持一个小团体的分享，也可以支持公开分享
 生活旅行，居家常备
-技术栈：`springboot`/`mybatis`/`redis`/`mongodb`/`elasticsearch`/`vue+element-ui`
+技术栈：`springboot`/`mybatis-plue`/`redis`/`mongodb`/`vue`/`element-ui`
 项目前端见 [vue前端地址](https://github.com/cliche-lu/my_history_vue.git)
 # 项目结构
 
