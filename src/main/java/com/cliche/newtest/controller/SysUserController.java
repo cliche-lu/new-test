@@ -56,6 +56,8 @@ public class SysUserController {
     @PostMapping("/add")
 //    @PreAuthorize("hasAuthority('sys:user:getUserByUserNamer')")
     public MyResult add(@RequestBody SysUser sysUser) {
+        Assert.isTrue(sysUser.getUsername() != null, "用户名不能为空");
+        Assert.isTrue(sysUser.getPassword() != null, "密码不能为空");
         SysUser userByUsername = sysUserService.getUserByUsername(sysUser.getUsername());
         Assert.isNull(userByUsername, "用户名已存在！");
         sysUser.setUserId(String.valueOf(UUID.randomUUID()));

@@ -66,6 +66,15 @@ public class LoginUser implements Serializable {
 	 * 多租户
 	 */
 	private String tenantId;
+
+	/**
+	 * 等级
+	 */
+	private String levels;
+	/**
+	 * 等级分
+	 */
+	private Integer levelScore;
 //	@TableField(exist = false)
 //	private Set<String> roles;
 

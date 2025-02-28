@@ -44,6 +44,15 @@ public class SysUser extends BaseEntity implements Serializable {
     private String status;
 
     /**
+     * 等级
+     */
+    private String levels;
+    /**
+     * 等级分
+     */
+    private Integer levelScore;
+
+    /**
      * 用户id
      */
     private String userId;

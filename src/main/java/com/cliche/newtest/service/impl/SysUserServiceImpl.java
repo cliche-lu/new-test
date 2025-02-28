@@ -52,7 +52,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         SysUser sysUser = this.baseMapper.selectOne(
                 new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username)
         );
-        Assert.isTrue(sysUser != null, "用户不存在");
+//        Assert.isTrue(sysUser != null, "用户不存在");
+        if (sysUser == null) {
+            return null;
+        }
         Set<String> userRoles = this.baseMapper.getUserRoles1(sysUser.getId());
         sysUser.setRoles(userRoles);
         redisUtil.set(CommonRedisKeys.USER_INFO + username, sysUser, 60 * 60 * 24);
