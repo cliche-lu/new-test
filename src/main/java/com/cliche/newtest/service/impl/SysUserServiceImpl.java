@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cliche.newtest.common.CommonRedisKeys;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.enity.SysUser;
+import com.cliche.newtest.enity.TenantType;
 import com.cliche.newtest.enity.vo.SysUserVo;
 import com.cliche.newtest.service.SysUserService;
 import com.cliche.newtest.mapper.SysUserMapper;
@@ -94,10 +95,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     public LoginUser getNowLoginUser() {
-        return SysUserLoginUtils.getLoginUser(redisUtil);
-    }
-    @Override
-    public LoginUser getNowLoginUser1() {
         return SecurityUtils.getSysUser();
     }
 

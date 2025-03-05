@@ -4,6 +4,7 @@ package com.cliche.newtest.config.handler;
 import com.baomidou.mybatisplus.extension.plugins.handler.MultiDataPermissionHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 
+import com.cliche.newtest.common.CommonEnum;
 import com.cliche.newtest.utils.TenantContext;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.JSQLParserException;
@@ -24,7 +25,7 @@ public class CustomDataPermissionHandler implements MultiDataPermissionHandler, 
 //        log.info("---------进入数据权限----");
         try {
             String sqlSegment = ""; // 数据权限相关的 SQL 片段
-            if (!table.getName().startsWith("sys_")) {
+            if (!CommonEnum.TENANT_TABLE.contains(table.getName())) {
                 String username = TenantContext.getUsername();
                 Assert.isTrue(StringUtils.hasLength(username), "用户未登录!");
                 // 如果表名不以 "sys_" 开头，则添加数据权限相关的 SQL 片段

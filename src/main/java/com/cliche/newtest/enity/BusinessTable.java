@@ -47,19 +47,23 @@ public class BusinessTable extends BaseEntity implements Serializable {
      */
     private String others;
     /**
+     * 类型
+     */
+    private String dataType;
+    /**
      * 分享至
      */
     private String share;
 
     @JsonFormat(
             timezone = "GMT+8",
-            pattern = "yyyy-MM-dd"
+            pattern = "yyyy-MM-dd HH:mm:ss"
     )
     private Date joinDateStart;
 
     @JsonFormat(
             timezone = "GMT+8",
-            pattern = "yyyy-MM-dd"
+            pattern = "yyyy-MM-dd HH:mm:ss"
     )
     private Date joinDateEnd;
 

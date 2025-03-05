@@ -3,6 +3,7 @@ package com.cliche.newtest.service;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.enity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cliche.newtest.enity.TenantType;
 import com.cliche.newtest.enity.vo.SysUserVo;
 
 import java.util.List;
@@ -19,7 +20,6 @@ public interface SysUserService extends IService<SysUser> {
     String login(String username, String password);
 
     LoginUser getNowLoginUser();
-    LoginUser getNowLoginUser1();
 
     void loginOut(String username);
 

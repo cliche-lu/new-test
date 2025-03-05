@@ -52,5 +52,5 @@ test: test
 mytest:
   name: myTest
   age: 18
-#  配置注册租户
-tenantId: 2
+#  配置注册租户 不填默认租户
+tenantId: 9

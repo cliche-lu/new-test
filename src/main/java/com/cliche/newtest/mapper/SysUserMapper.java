@@ -2,6 +2,7 @@ package com.cliche.newtest.mapper;
 
 import com.cliche.newtest.enity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cliche.newtest.enity.TenantType;
 import com.cliche.newtest.enity.vo.SysUserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

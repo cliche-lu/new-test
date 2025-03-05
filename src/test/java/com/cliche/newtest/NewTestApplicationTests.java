@@ -1,6 +1,8 @@
 package com.cliche.newtest;
 
+import com.cliche.newtest.enity.TenantType;
 import com.cliche.newtest.mapper.SysUserMapper;
+import com.cliche.newtest.service.TenantTypeService;
 import com.cliche.newtest.utils.CustomMd5PasswordEncoder;
 import com.cliche.newtest.utils.RedisUtil;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootTest
@@ -23,7 +26,14 @@ public class NewTestApplicationTests {
     @Autowired
     private SysUserMapper sysUserMapper;
 
+    @Autowired
+    private TenantTypeService tenantTypeService;
 
+@Test
+    public void test3(){
+    List<TenantType> tenantType = tenantTypeService.getTenantType();
+    System.out.println("tenantType = " + tenantType);
+}
     @Test
     public void test2(){
         boolean matches1 = new CustomMd5PasswordEncoder().matches("123456","[-31, 10, -36, 57, 73, -70, 89, -85, -66, 86, -32, 87, -14, 15, -120, 62]");

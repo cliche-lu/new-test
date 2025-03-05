@@ -4,8 +4,10 @@ package com.cliche.newtest.controller;
 import com.cliche.newtest.common.MyResult;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.enity.SysUser;
+import com.cliche.newtest.enity.TenantType;
 import com.cliche.newtest.enity.vo.SysUserVo;
 import com.cliche.newtest.service.SysUserService;
+import com.cliche.newtest.service.TenantTypeService;
 import com.cliche.newtest.utils.CustomMd5PasswordEncoder;
 import com.cliche.newtest.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +37,10 @@ public class SysUserController {
         return MyResult.ok(one);
     }
 
-    @GetMapping("/getNowLoginUser")
-    @PreAuthorize("hasAuthority('sys:user:getNowLoginUser')")
-    public MyResult getNowLoginUser() {
-        LoginUser one = sysUserService.getNowLoginUser();
-        return MyResult.ok(one);
-    }
     @GetMapping("/getNowLoginUser1")
 //    @PreAuthorize("hasAuthority('sys:user:getNowLoginUser')")
     public MyResult getNowLoginUser1() {
-        LoginUser one = sysUserService.getNowLoginUser1();
+        LoginUser one = sysUserService.getNowLoginUser();
         return MyResult.ok(one);
     }
     @GetMapping("/getUserList")
@@ -61,7 +57,9 @@ public class SysUserController {
         SysUser userByUsername = sysUserService.getUserByUsername(sysUser.getUsername());
         Assert.isNull(userByUsername, "用户名已存在！");
         sysUser.setUserId(String.valueOf(UUID.randomUUID()));
-        sysUser.setTenantId(reTenantId);
+        if (sysUser.getTenantId() == null) {
+            sysUser.setTenantId(reTenantId);
+        }
         sysUser.setCreateBy(sysUser.getUsername());
         CustomMd5PasswordEncoder md5 = new CustomMd5PasswordEncoder();
         sysUser.setPassword(md5.encode(sysUser.getPassword()));
