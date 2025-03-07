@@ -15,3 +15,4 @@
 1. mysql数据库 数据库脚本见 [db](db)目录
 2. redis 本地数据库链接，在[resources](`resources`)下自行创建配置文件
 3. mongoDb
+4. 登录用户名`admin`密码`123456`
