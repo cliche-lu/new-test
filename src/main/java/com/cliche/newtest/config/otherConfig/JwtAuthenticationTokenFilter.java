@@ -82,7 +82,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" +role));
         }
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, authorities);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, loginUser.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         //放行
         filterChain.doFilter(request, response);
