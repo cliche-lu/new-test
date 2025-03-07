@@ -58,10 +58,13 @@ public class LoginUser implements Serializable {
 	private String status;
 
 	/**
+	 * 权限 角色？
+	 */
+	private Set<String> roles;
+	/**
 	 * 权限
 	 */
-	@TableField(exist = false)
-	private Set<String> roles;
+	private Set<String> permissions ;
 	/**
 	 * 多租户
 	 */

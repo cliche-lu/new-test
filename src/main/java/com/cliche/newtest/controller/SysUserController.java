@@ -65,6 +65,7 @@ public class SysUserController {
         if (sysUser.getTenantId() == null) {
             sysUser.setTenantId(reTenantId);
         }
+        sysUser.setStatus("0");
         sysUser.setCreateBy(sysUser.getUsername());
         CustomMd5PasswordEncoder md5 = new CustomMd5PasswordEncoder();
         sysUser.setPassword(md5.encode(sysUser.getPassword()));
@@ -96,6 +97,41 @@ public class SysUserController {
         }
         redisUtil.del(CommonRedisKeys.USER_INFO + byId.getUsername(), CommonRedisKeys.USER_LOGIN + byId.getUsername());
         sysUserService.updateById(sysUser);
+        return MyResult.success("修改成功！");
+    }
+
+    /**
+     * 冻结用户
+     *
+     * @param id id
+     * @return res
+     */
+    @PostMapping("/frozen")
+    @PreAuthorize("hasAnyRole('admin')")
+    public MyResult frozen(@RequestParam Long id) {
+        SysUser byId = sysUserService.getById(id);
+        Assert.isTrue(!byId.getUsername().equals("admin"), "admin用户不能被冻结！");
+        Assert.isTrue("0".equals(byId.getStatus()), "用户已被冻结，请勿重复操作！");
+        byId.setStatus("1");
+        redisUtil.del(CommonRedisKeys.USER_INFO + byId.getUsername(), CommonRedisKeys.USER_LOGIN + byId.getUsername());
+        sysUserService.updateById(byId);
+        return MyResult.success("修改成功！");
+    }
+
+    /**
+     * 解冻用户
+     *
+     * @param id id
+     * @return res
+     */
+    @PostMapping("/unfrozen")
+    @PreAuthorize("hasAnyRole('admin','test')")
+    public MyResult unfrozen(@RequestParam Long id) {
+        SysUser byId = sysUserService.getById(id);
+        Assert.isTrue("1".equals(byId.getStatus()), "用户未被冻结，请勿重复操作！");
+        byId.setStatus("0");
+        redisUtil.del(CommonRedisKeys.USER_INFO + byId.getUsername(), CommonRedisKeys.USER_LOGIN + byId.getUsername());
+        sysUserService.updateById(byId);
         return MyResult.success("修改成功！");
     }
 }

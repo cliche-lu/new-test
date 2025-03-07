@@ -65,6 +65,9 @@ public class SysUser extends BaseEntity implements Serializable {
     @TableField(exist = false)
     private Set<String> roles;
 
+    @TableField(exist = false)
+    private Set<String> permissions ;
+
     @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cliche.newtest.common.CommonRedisKeys;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.enity.SysUser;
-import com.cliche.newtest.enity.TenantType;
 import com.cliche.newtest.enity.vo.SysUserVo;
 import com.cliche.newtest.service.SysUserService;
 import com.cliche.newtest.mapper.SysUserMapper;
@@ -13,7 +12,6 @@ import com.cliche.newtest.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,8 +55,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         if (sysUser == null) {
             return null;
         }
-        Set<String> userRoles = this.baseMapper.getUserRoles1(sysUser.getId());
-        sysUser.setRoles(userRoles);
+        Set<String> userPermission = this.baseMapper.getUserPermission(sysUser.getId());
+        Set<String> userRole = this.baseMapper.getUserRoles(sysUser.getId());
+        sysUser.setPermissions(userPermission);
+        sysUser.setRoles(userRole);
         redisUtil.set(CommonRedisKeys.USER_INFO + username, sysUser, 60 * 60 * 24);
         return sysUser;
     }

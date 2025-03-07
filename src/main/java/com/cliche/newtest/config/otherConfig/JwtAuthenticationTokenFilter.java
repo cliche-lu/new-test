@@ -6,6 +6,7 @@ import com.cliche.newtest.common.CommonRedisKeys;
 import com.cliche.newtest.enity.LoginUser;
 import com.cliche.newtest.utils.JWTUtils;
 import com.cliche.newtest.utils.RedisUtil;
+import com.cliche.newtest.utils.SecurityUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,21 +54,33 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         //从redis中获取用户信息
         String redisKey = CommonRedisKeys.USER_LOGIN + userid;
+//        LoginUser loginUser =  SecurityUtils.getSysUser();
         LoginUser loginUser = (LoginUser) redisUtil.get(redisKey);
         if (Objects.isNull(loginUser)) {
             throw new RuntimeException("用户未登录");
         }
         //存入SecurityContextHolder
         // 获取权限信息封装到Authentication中
-        Set<String> roles1 = loginUser.getRoles();
-        if (roles1.contains("admin")) {
+        Set<String> permissions = loginUser.getPermissions();
+        Set<String> roles = loginUser.getRoles();
+//        角色包含`admin`则放行
+        if (roles.contains("admin")) {
             //放行
             filterChain.doFilter(request, response);
+            return;
         }
         //将permissions转成数组
         Collection<GrantedAuthority> authorities = new HashSet<>();
-        for (String role : roles1) {
+        for (String role : permissions) {
             authorities.add(new SimpleGrantedAuthority(role));
+        }
+        /*
+            将roles转成数组
+            角色配置，当接口使用 注解 @PreAuthorize("hasAnyRole('admin')")
+            注意：这里需要将roles转成ROLE_开头的字符串，因为Spring Security默认会从ROLE_前缀中获取角色信息
+         */
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" +role));
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
