@@ -12,6 +12,7 @@ import com.cliche.newtest.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +74,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 //                if (redisUtil.hasKey(CommonRedisKeys.USER_LOGIN + sysUser.getUserId())) {
 //                    throw new GlobalException("用户已在其他地方登录！");
 //                }
+                Assert.isTrue("0".equals(sysUser.getStatus()), "用户已被冻结，请联系管理员！");
                 HashMap<String, String> map = new HashMap<>();
                 map.put("username", username);
                 map.put("tenantId", sysUser.getTenantId());
