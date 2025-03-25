@@ -12,7 +12,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN echo "Asia/Shanghai" > /etc/timezone
 
  #前者为打包的文件 后者为修改后的自定义名字
-ADD new-test-0.0.1-SNAPSHOT.jar new-test.jar
+ADD ../target/new-test-0.0.1-SNAPSHOT.jar new-test.jar
 # 运行jar包
 RUN bash -c 'touch /new-test.jar'
 # 统一启动端口
@@ -20,14 +20,3 @@ RUN bash -c 'touch /new-test.jar'
 EXPOSE 8089
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/new-test.jar"]
 
-#WORKDIR /home/xingtu
-#
-## 复制jar包 dockerfile
-#COPY study-room.war /temp/study-room.war
-#
-## 统一启动端口
-#ENV PARAMS = "--server.port=9204"
-#
-#EXPOSE 9204
-#
-#ENTRYPOINT ["/bin/sh","-c","java -Dfile.encoding=utf8 -Djava.security.egd=file:/dev/./urandom -jar app.jar ${PARAMS}"]
